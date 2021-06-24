@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="dashboard-header d-flex flex-column grid-margin">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap border-bottom pb-3 mb-3">
+                        <div class="d-flex align-items-center">
+                            <h4 class="mb-0 font-weight-bold mr-3">Add Bilty</h4>
+                            <!-- <button class="btn btn-inverse-info tx-12 btn-sm btn-rounded mx-3">Enterprise</button> -->
+                            <div class="d-none d-md-flex">
+                                <p class="text-muted mb-0 tx-13 cursor-pointer">Bilty</p>
+                                <i class="mdi mdi-chevron-right text-muted"></i>
+                                <p class="text-muted mb-0 tx-13 cursor-pointer">Add Bilty</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form action="" class="bb-add-form row" id="user_form" method="POST" enctype="multipart/form-data" data-parsley-validate>
+              <fieldset class="module aligned col-12">
+                {% csrf_token %}
+                {{ form.as_p }}
+              </fieldset>
+            <div class="col-12 col-sm-12">
+                <button class="btn btn-info btn-md mr-2"><b>Submit</b></button>
+            </div>
+        </form>
+    </div>
+    <!-- content-wrapper ends -->
+    {% endblock %}

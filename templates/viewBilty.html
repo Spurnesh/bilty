@@ -1,0 +1,94 @@
+{% extends 'base.html' %} {% block content %}
+<div class="main-panel">
+  <div class="content-wrapper">
+    {% if messages %} {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+      {{ message }}<button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %} {% endif %}
+    <div class="row">
+      <div class="col-12">
+        <div class="dashboard-header d-flex flex-column grid-margin">
+          <div
+            class="d-flex align-items-center justify-content-between flex-wrap border-bottom pb-3 mb-3"
+          >
+            <div class="d-flex align-items-center">
+              <h4 class="mb-0 font-weight-bold mr-3">View Bilty</h4>
+              <!-- <button class="btn btn-inverse-info tx-12 btn-sm btn-rounded mx-3">Enterprise</button> -->
+              <div class="d-none d-md-flex">
+                <p class="text-muted mb-0 tx-13 cursor-pointer">User</p>
+                <i class="mdi mdi-chevron-right text-muted"></i>
+                <p class="text-muted mb-0 tx-13 cursor-pointer">
+                  View Bilty List
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form class="row">
+      <div class="col-12 table-responsive">
+        <table id="myTable" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Sr.no #</th>
+              <th>Consignor</th>
+              <th>Consignee</th>
+              <th>City</th>
+              <th>From</th>
+              <th>To</th>
+              <th>Bilty Number</th>
+              <th>Truck Number</th>
+              <th>Loading DateTime</th>
+              <th>Packages</th>
+              <th>Weight</th>
+<!--              <th>Action</th>-->
+            </tr>
+          </thead>
+          <tbody class="text-capitalize">
+            {% for object in object_list %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{object.consignor}}</td>
+              <td>{{object.consignee}}</td>
+              <td>{{object.city}}</td>
+              <td>{{object.from}}</td>
+              <td>{{object.to}}</td>
+              <td>{{object.bilty_number}}</td>
+              <td> {{object.truck_number}}</td>
+              <td>{{object.loading_date}}</td>
+              <td>{{object.packages}}</td>
+              <td>{{object.weight}}</td>
+<!--              <td>-->
+<!--                <button-->
+<!--                  class="btn btn-info bg-white text-info px-2 py-1 rounded"-->
+<!--                >-->
+<!--                  View-->
+<!--                </button>-->
+<!--                 {% if request.user.is_superuser %}-->
+<!--                <a-->
+<!--                  href="/{{object.id}}/delete-examiner/"-->
+<!--                  class="btn btn-danger px-2 py-1 rounded"-->
+<!--                  >Delete</a-->
+<!--                >-->
+<!--                {% endif %}-->
+<!--              </td>-->
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+  <!-- content-wrapper ends -->
+  {% endblock %}
+</div>

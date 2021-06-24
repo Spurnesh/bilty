@@ -1,0 +1,577 @@
+{% load auth_extras %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Bilty</title>
+    <!-- base:css -->
+    <!-- <link rel="stylesheet" href="{% static 'vendors/mdi/css/materialdesignicons.min.css' %}"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="//cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" />
+
+    <link rel="stylesheet" href="{% static 'vendors/css/vendor.bundle.base.css' %}" />
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <link rel="stylesheet" href="{% static 'vendors/jqvmap/jqvmap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'vendors/flag-icon-css/css/flag-icon.min.css' %}" />
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <!-- endinject -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" />
+    <!-- brijesh css -->
+    <link rel="stylesheet" href="{% static 'css/bb.css' %}" />
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css" />
+    <style>
+      a.nav-link[data-toggle="collapse"]:after {
+        content: "";
+        border: solid 5px transparent;
+        border-top: solid 5px #bfbfbf;
+        position: absolute;
+        right: 7px;
+        top: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center">
+<!--          <a class="navbar-brand brand-logo bb-logo" href="/"><img src="{% static 'images/logo.png' %}" alt="logo" /></a>-->
+<!--          <a class="navbar-brand brand-logo-mini" href="/"><img src="{% static 'images/logo.png' %}" alt="logo" /></a>-->
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+          </button>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+          <ul class="navbar-nav mr-lg-2">
+            <li class="nav-item nav-search d-none d-lg-block">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="search">
+                    <i class="mdi mdi-magnify"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" placeholder="Search for anything..." aria-label="search" aria-describedby="search" />
+              </div>
+            </li>
+          </ul>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item dropdown">
+              <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
+                <i class="mdi mdi-bell-outline mx-0"></i>
+                <span class="count"></span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-success">
+                      <i class="mdi mdi-information mx-0"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal">Application Error</h6>
+                    <p class="font-weight-light small-text mb-0 text-muted">Just now</p>
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-warning">
+                      <i class="mdi mdi-settings mx-0"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal">Settings</h6>
+                    <p class="font-weight-light small-text mb-0 text-muted">Private message</p>
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-info">
+                      <i class="mdi mdi-account-box mx-0"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                    <p class="font-weight-light small-text mb-0 text-muted">2 days ago</p>
+                  </div>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
+                <img src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" alt="profile" />
+                <!-- images/faces/face5.jpg -->
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                <a class="dropdown-item">
+                  <i class="mdi mdi-settings"></i>
+                  Settings
+                </a>
+                <a class="dropdown-item" href="/logout/">
+                  <i class="mdi mdi-logout"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+            <li class="nav-item nav-settings d-none d-lg-flex" style="display: none !important">
+              <a class="nav-link" href="#">
+                <i class="mdi mdi-dots-horizontal"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <div id="right-sidebar" class="settings-panel">
+          <i class="settings-close mdi mdi-close"></i>
+          <ul class="nav nav-tabs" id="setting-panel" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">CHATS</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="setting-content">
+            <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
+              <div class="add-items d-flex px-3 mb-0">
+                <form class="form w-100">
+                  <div class="form-group d-flex">
+                    <input type="text" class="form-control todo-list-input" placeholder="Add To-do" />
+                    <button type="submit" class="add btn btn-primary todo-list-add-btn" id="add-task">Add</button>
+                  </div>
+                </form>
+              </div>
+              <div class="list-wrapper px-3">
+                <ul class="d-flex flex-column-reverse todo-list">
+                  <li>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="checkbox" type="checkbox" />
+                        Team review meeting at 3.00 PM
+                      </label>
+                    </div>
+                    <i class="remove mdi mdi-close-circle-outline"></i>
+                  </li>
+                  <li>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="checkbox" type="checkbox" />
+                        Prepare for presentation
+                      </label>
+                    </div>
+                    <i class="remove mdi mdi-close-circle-outline"></i>
+                  </li>
+                  <li>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="checkbox" type="checkbox" />
+                        Resolve all the low priority tickets due today
+                      </label>
+                    </div>
+                    <i class="remove mdi mdi-close-circle-outline"></i>
+                  </li>
+                  <li class="completed">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="checkbox" type="checkbox" checked />
+                        Schedule meeting for next week
+                      </label>
+                    </div>
+                    <i class="remove mdi mdi-close-circle-outline"></i>
+                  </li>
+                  <li class="completed">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="checkbox" type="checkbox" checked />
+                        Project review
+                      </label>
+                    </div>
+                    <i class="remove mdi mdi-close-circle-outline"></i>
+                  </li>
+                </ul>
+              </div>
+              <div class="events py-4 border-bottom px-3">
+                <div class="wrapper d-flex mb-2">
+                  <i class="mdi mdi-circle-outline text-primary mr-2"></i>
+                  <span>Feb 11 2018</span>
+                </div>
+                <p class="mb-0 font-weight-thin text-gray">Creating component page</p>
+                <p class="text-gray mb-0">build a js based app</p>
+              </div>
+              <div class="events pt-4 px-3">
+                <div class="wrapper d-flex mb-2">
+                  <i class="mdi mdi-circle-outline text-primary mr-2"></i>
+                  <span>Feb 7 2018</span>
+                </div>
+                <p class="mb-0 font-weight-thin text-gray">Meeting with Alisa</p>
+                <p class="text-gray mb-0">Call Sarah Graves</p>
+              </div>
+            </div>
+            <!-- To do section tab ends -->
+            <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
+              <div class="d-flex align-items-center justify-content-between border-bottom">
+                <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
+                <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See All</small>
+              </div>
+              <ul class="chat-list">
+                <li class="list active">
+                  <div class="profile"><img src="images/faces/face1.jpg" alt="image" /><span class="online"></span></div>
+                  <div class="info">
+                    <p>Thomas Douglas</p>
+                    <p>Available</p>
+                  </div>
+                  <small class="text-muted my-auto">19 min</small>
+                </li>
+                <li class="list">
+                  <div class="profile"><img src="images/faces/face2.jpg" alt="image" /><span class="offline"></span></div>
+                  <div class="info">
+                    <div class="wrapper d-flex">
+                      <p>Catherine</p>
+                    </div>
+                    <p>Away</p>
+                  </div>
+                  <div class="badge badge-primary badge-pill my-auto mx-2">4</div>
+                  <small class="text-muted my-auto">23 min</small>
+                </li>
+                <li class="list">
+                  <div class="profile"><img src="images/faces/face3.jpg" alt="image" /><span class="online"></span></div>
+                  <div class="info">
+                    <p>Daniel Russell</p>
+                    <p>Available</p>
+                  </div>
+                  <small class="text-muted my-auto">14 min</small>
+                </li>
+                <li class="list">
+                  <div class="profile"><img src="images/faces/face4.jpg" alt="image" /><span class="offline"></span></div>
+                  <div class="info">
+                    <p>James Richardson</p>
+                    <p>Away</p>
+                  </div>
+                  <small class="text-muted my-auto">2 min</small>
+                </li>
+                <li class="list">
+                  <div class="profile"><img src="images/faces/face5.jpg" alt="image" /><span class="online"></span></div>
+                  <div class="info">
+                    <p>Madeline Kennedy</p>
+                    <p>Available</p>
+                  </div>
+                  <small class="text-muted my-auto">5 min</small>
+                </li>
+                <li class="list">
+                  <div class="profile"><img src="images/faces/face6.jpg" alt="image" /><span class="online"></span></div>
+                  <div class="info">
+                    <p>Sarah Graves</p>
+                    <p>Available</p>
+                  </div>
+                  <small class="text-muted my-auto">47 min</small>
+                </li>
+              </ul>
+            </div>
+            <!-- chat tab ends -->
+          </div>
+        </div>
+        <!-- partial -->
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            {% if request.user|has_group:"student" %}
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="mdi mdi-clipboard-text-outline menu-icon"></i>
+                <span class="menu-title">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/exam-list/">
+                <i class="mdi mdi-clipboard-text-outline menu-icon"></i>
+                <span class="menu-title">Exam List</span>
+              </a>
+            </li>
+
+            {% elif request.user|has_group:"examiner" %}
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="mdi mdi-clipboard-text-outline menu-icon"></i>
+                <span class="menu-title">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#mcq-submenu" aria-expanded="false" aria-controls="maps">
+                <i class="mdi mdi-map-outline menu-icon"></i>
+                <span class="menu-title">Question Bank</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="mcq-submenu">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/add-mcq/">Add Questions</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/exam/view-mcq/">Manage Questions</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/exam/add-question-paper/">Create Question Paper</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/exam/view-question-paper/">Manage Question Paper</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#exam-submenu" aria-expanded="false" aria-controls="icons">
+                <i class="mdi mdi-emoticon-outline menu-icon"></i>
+                <span class="menu-title">Manage Exam</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="exam-submenu">
+                <ul class="nav flex-column sub-menu">
+                  <!-- <li class="nav-item"> <a class="nav-link" href="/exam/add-exam/">Add Exam</a></li> -->
+                  <li class="nav-item">
+                    <a class="nav-link" href="/exam/add-exam/">Add Exam</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/exam/view-exam/">View Exam</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#student-submenu" aria-expanded="false" aria-controls="charts">
+                <i class="mdi mdi-account-supervisor menu-icon"></i>
+                <span class="menu-title">Student</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="student-submenu">
+                <ul class="nav flex-column sub-menu">
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="/view-student/">View Student</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#omp-submenu" aria-expanded="false" aria-controls="icons">
+                <i class="mdi mdi-graph-outline menu-icon"></i>
+                <span class="menu-title">Online Monitoring Process</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="omp-submenu">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/exam/add-exam/">Live Status</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/exam/view-exam/">Saved Data</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            {% else %}
+
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="mdi mdi-clipboard-text-outline menu-icon"></i>
+                <span class="menu-title">Dashboard</span>
+              </a>
+            </li>
+
+<!--            <li class="nav-item">-->
+<!--              <a class="nav-link" data-toggle="collapse" href="#sector-submenu" aria-expanded="false" aria-controls="ui-basic">-->
+<!--                <i class="mdi mdi-invert-colors menu-icon"></i>-->
+<!--                <span class="menu-title">Sector</span>-->
+<!--                <i class="menu-arrow"></i>-->
+<!--              </a>-->
+<!--              <div class="collapse" id="sector-submenu">-->
+<!--                <ul class="nav flex-column sub-menu">-->
+<!--                  <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/add-department/">Add Sector</a>-->
+<!--                  </li>-->
+<!--                  <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/view-department/">Manage Sector/SSC&lt;!&ndash; View Sector &ndash;&gt;</a>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <a class="nav-link" data-toggle="collapse" href="#role-submenu">-->
+<!--                <i class="mdi mdi-cube-outline menu-icon"></i>-->
+<!--                <span class="menu-title">Job Role</span>-->
+<!--                <i _ngcontent-vww-c19="" class="menu-arrow mdi mdi-chevron-down menu-icon"></i>-->
+<!--              </a>-->
+<!--              <div class="collapse" id="role-submenu">-->
+<!--                <ul class="nav flex-column sub-menu">-->
+<!--                  <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/add-role/">Add QP/Job Role</a>-->
+<!--                  </li>-->
+<!--                  <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/view-role/">Manage QP/Job Role</a>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--            </li>-->
+
+
+<!--            <li class="nav-item">-->
+<!--              <a class="nav-link" href="/log-detail/" aria-expanded="false" aria-controls="general-pages">-->
+<!--                <i class="mdi mdi-file-outline menu-icon"></i>-->
+<!--                <span class="menu-title">Log Details</span>-->
+<!--                <i class="menu-arrow"></i>-->
+<!--              </a>-->
+<!--            </li>-->
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#student-submenu" aria-expanded="false" aria-controls="charts">
+                <i class="mdi mdi-account-supervisor menu-icon"></i>
+                <span class="menu-title">Users</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="student-submenu">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/add-user/">Add User</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/view-user/">View User</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#reports" aria-expanded="false" aria-controls="apps">
+                <i class="mdi mdi-cube-outline menu-icon"></i>
+                <span class="menu-title">Biltys</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="reports">
+                <ul class="nav flex-column sub-menu">
+                   <li class="nav-item">
+                    <a class="nav-link" href="/add-bilty"> Add Bilty </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/view-bilty"> View Bilty </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#"> Bilty Report </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+        <!-- partial -->
+        {% block content %} {% endblock %}
+
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+    <!-- container-scroller -->
+
+    <!-- base:js -->
+    <script src="{% static 'vendors/js/vendor.bundle.base.js' %}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <script src="{% static 'vendors/jquery.flot/jquery.flot.js' %}"></script>
+    <script src="{% static 'vendors/jquery.flot/jquery.flot.pie.js' %}"></script>
+    <script src="{% static 'vendors/jquery.flot/jquery.flot.resize.js' %}"></script>
+    <script src="{% static 'vendors/jqvmap/jquery.vmap.min.js' %}"></script>
+    <script src="{% static 'vendors/jqvmap/maps/jquery.vmap.world.js' %}"></script>
+    <script src="{% static 'vendors/jqvmap/maps/jquery.vmap.usa.js' %}"></script>
+    <script src="{% static 'vendors/peity/jquery.peity.min.js' %}"></script>
+    <script src="{% static 'js/jquery.flot.dashes.js' %}"></script>
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="{% static 'js/off-canvas.js' %}"></script>
+    <script src="{% static 'js/hoverable-collapse.js' %}"></script>
+    <script src="{% static 'js/template.js' %}"></script>
+    <script src="{% static 'js/settings.js' %}"></script>
+    <script src="{% static 'js/todolist.js' %}"></script>
+    <!-- endinject -->
+    <!-- plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- Custom js for this page-->
+    <script src="{% static 'js/dashboard.js' %}"></script>
+    <script src="{% static 'js/permissions.js' %}"></script>
+    <!-- End custom js for this page-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#myTable").DataTable({
+          dom: "Bfrtip",
+          buttons: ["copy", "csv", "excel", "pdf", "print"],
+        });
+      });
+
+      // function getLocalStream() {
+      // navigator.mediaDevices
+      //   .getUserMedia({ video: true, audio: true })
+      //   .then((stream) => {
+      //     window.localStream = stream; // A
+      //     window.localAudio.srcObject = stream; // B
+      //     window.localAudio.autoplay = true; // C
+      //   })
+      //   .catch((err) => {
+      //     console.log("u got an error:" + err);
+      //   });
+
+      // }
+
+      // Audio video
+      //         var constraints = { audio: true, video: { width: 1280, height: 720 } };
+
+      // navigator.mediaDevices.getUserMedia(constraints)
+      // .then(function(mediaStream) {
+      //   var video = document.querySelector('video');
+      //   video.srcObject = mediaStream;
+      //   video.onloadedmetadata = function(e) {
+      //     video.play();
+      //   };
+      // })
+      // .catch(function(err) { console.log(err.name + ": " + err.message); });
+
+      window.onload = function () {
+        var startPos;
+        var geoSuccess = function (position) {
+          startPos = position;
+          document.getElementById("startLat").innerHTML = startPos.coords.latitude;
+          document.getElementById("startLon").innerHTML = startPos.coords.longitude;
+        };
+        var geoError = function (error) {
+          console.log("Error occurred. Error code: " + error.code);
+          // error.code can be:
+          //   0: unknown error
+          //   1: permission denied
+          //   2: position unavailable (error response from location provider)
+          //   3: timed out
+        };
+        var pos = navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+        // console.log(startPos.coords.latitude);
+        // console.log(startPos.coords.longitude);
+      };
+    </script>
+  </body>
+</html>
