@@ -41,6 +41,8 @@
           <thead>
             <tr>
               <th>Sr.no #</th>
+              <th>User</th>
+              <th>Email</th>
               <th>Consignor</th>
               <th>Consignee</th>
               <th>City</th>
@@ -49,8 +51,14 @@
               <th>Bilty Number</th>
               <th>Truck Number</th>
               <th>Loading DateTime</th>
+              <th>good_value</th>
+              <th>basic_freight</th>
               <th>Packages</th>
               <th>Weight</th>
+              <th>Advance</th>
+              <th>Hammali</th>
+              <th>Amount</th>
+              <th>Balance Feight</th>
 <!--              <th>Action</th>-->
             </tr>
           </thead>
@@ -58,16 +66,24 @@
             {% for object in object_list %}
             <tr>
               <td>{{forloop.counter}}</td>
+              <td>{{object.user.username}}</td>
+              <td>{{object.email}}</td>
               <td>{{object.consignor}}</td>
               <td>{{object.consignee}}</td>
               <td>{{object.city}}</td>
               <td>{{object.from}}</td>
               <td>{{object.to}}</td>
-              <td>{{object.bilty_number}}</td>
-              <td> {{object.truck_number}}</td>
-              <td>{{object.loading_date}}</td>
+              <td>{{object.bilty_no}}</td>
+              <td> {{object.truck_no}}</td>
+              <td>{{object.loading_date_time}}</td>
+              <td>{{object.good_value}}</td>
+              <td>{{object.basic_freight}}</td>
               <td>{{object.packages}}</td>
               <td>{{object.weight}}</td>
+              <td>{{object.advance}}</td>
+              <td>{{object.hammali}}</td>
+              <td>{{object.amount}}</td>
+              <td>{{object.balance_feight}}</td>
 <!--              <td>-->
 <!--                <button-->
 <!--                  class="btn btn-info bg-white text-info px-2 py-1 rounded"-->

@@ -50,3 +50,4 @@ class BiltyForm(forms.ModelForm):
     class Meta:
         model = Bilty
         fields = '__all__'
+        exclude = ['user']

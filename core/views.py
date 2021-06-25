@@ -64,14 +64,16 @@ class Dashboard(TemplateView):
         return render(request, 'base.html')
 
 
-class BiltyCreateView(SuccessMessageMixin, CreateView):
+class BiltyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = BiltyForm
     template_name = "addBilty.html"
     success_message = "%(consignor)s was created successfully"
     success_url = "/view-bilty"
 
     def form_valid(self, form):
+        user = self.request.user
         obj = form.save(commit=False)
+        obj.user=user
         obj.save()
         return super().form_valid(form)
 
@@ -80,20 +82,40 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     form_class = UserForm
     template_name = "addUser.html"
     success_message = "%(first_name)s was created successfully"
-    success_url = "/view-bilty"
+    success_url = "/view-user"
 
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.set_password(form.cleaned_data.get('password'))
+        obj.user_password = form.cleaned_data.get('password')
         obj.save()
         return super().form_valid(form)
 
 
+# class BiltyListView(ListView):
+#     model = Bilty
+#     paginate_by = 20
+#     template_name = 'viewBilty.html'
+#
+#     def get_context_data(self, **kwargs):
+#         data = super(RoleUpdateView, self).get_context_data(**kwargs)
+#         if self.request.POST:
+#             data['nos'] = NosNameFormSet(
+#                 self.request.POST, instance=self.object)
+#         else:
+#             data['nos'] = NosNameFormSet(instance=self.object)
+#         return data
+
 class BiltyListView(ListView):
-    model = Bilty
-    paginate_by = 20
     template_name = 'viewBilty.html'
 
+    def get(self, request):
+        current_user = self.request.user
+        if current_user.is_superuser:
+            object_list = Bilty.objects.all()
+        else:
+            object_list = Bilty.objects.filter(user=current_user)
+        return render(request, 'viewBilty.html', {'object_list': object_list})
 
 class UserListView(ListView):
     model = User

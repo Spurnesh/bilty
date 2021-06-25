@@ -432,6 +432,7 @@
 <!--                <i class="menu-arrow"></i>-->
 <!--              </a>-->
 <!--            </li>-->
+            {% if request.user.is_superuser %}
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#student-submenu" aria-expanded="false" aria-controls="charts">
                 <i class="mdi mdi-account-supervisor menu-icon"></i>
@@ -449,6 +450,7 @@
                 </ul>
               </div>
             </li>
+            {% endif %}
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#reports" aria-expanded="false" aria-controls="apps">
                 <i class="mdi mdi-cube-outline menu-icon"></i>
