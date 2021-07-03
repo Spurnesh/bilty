@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import os
 import datetime
 from pathlib import Path
 
@@ -25,7 +26,9 @@ SECRET_KEY = 'it8cqw6-0y0k*05!xf5vn&-&(cdhtzqo9bxe*5ozs(ap9j#-iv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1'
+'bilty.heroku.com']
 
 AUTH_USER_MODEL = 'core.User'
 
@@ -45,6 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -152,8 +156,9 @@ if DEBUG:
    ]
 else:
     STATIC_ROOT = BASE_DIR / "static"
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / "media"
-LOGOUT_REDIRECT_URL = '/login/'
+#MEDIA_URL = '/media/'
+#MEDIA_ROOT = BASE_DIR / "media"
+#LOGOUT_REDIRECT_URL = '/login/'
 
